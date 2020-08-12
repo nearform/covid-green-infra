@@ -83,7 +83,7 @@ data "template_file" "push_service_container_definitions" {
 
   vars = {
     config_var_prefix = local.config_var_prefix
-    image_uri         = "${aws_ecr_repository.push.repository_url}:latest"
+    image_uri         = local.ecs_push_image_uri
     listening_port    = var.push_listening_port
     logs_service_name = aws_cloudwatch_log_group.push.name
     log_group_region  = var.aws_region

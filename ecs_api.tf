@@ -96,9 +96,9 @@ data "template_file" "api_service_container_definitions" {
   template = file(format("%s/templates/api_service_task_definition.tpl", path.module))
 
   vars = {
-    api_image_uri        = "${aws_ecr_repository.api.repository_url}:latest"
+    api_image_uri        = local.ecs_api_image_uri
     config_var_prefix    = local.config_var_prefix
-    migrations_image_uri = "${aws_ecr_repository.migrations.repository_url}:latest"
+    migrations_image_uri = local.ecs_migrations_image_uri
     listening_port       = var.api_listening_port
     logs_service_name    = aws_cloudwatch_log_group.api.name
     log_group_region     = var.aws_region
