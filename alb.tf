@@ -188,5 +188,5 @@ module "alb_logs" {
   region                  = var.aws_region
   s3_bucket_name          = format("%s-alb-logs", module.labels.id)
   s3_log_bucket_retention = var.logs_retention_days
-  tags                    = var.tags
+  tags                    = module.labels.tags
 }
