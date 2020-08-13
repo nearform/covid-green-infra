@@ -13,3 +13,8 @@ provider "aws" {
   region  = var.aws_region
   profile = var.dns_profile
 }
+
+## We keep this till we have applied all the way to prod and state files are updated
+provider "template" {
+  version = "~> 2.1"
+}
