@@ -57,14 +57,6 @@ resource "aws_iam_role_policy_attachment" "authorizer_logs" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-data "aws_secretsmanager_secret" "jwt_secret" {
-  name = "${module.labels.id}-jwt"
-}
-
-data "aws_secretsmanager_secret_version" "jwt_secret" {
-  secret_id = data.aws_secretsmanager_secret.jwt_secret.id
-}
-
 resource "aws_lambda_function" "authorizer" {
   filename         = "${path.module}/.zip/${module.labels.id}_authorizer.zip"
   function_name    = "${module.labels.id}-authorizer"
@@ -82,7 +74,7 @@ resource "aws_lambda_function" "authorizer" {
     variables = {
       CONFIG_VAR_PREFIX = local.config_var_prefix,
       NODE_ENV          = "production"
-      JWT_SECRET        = jsondecode(data.aws_secretsmanager_secret_version.jwt_secret.secret_string)["key"]
+      JWT_SECRET        = jsondecode(data.aws_secretsmanager_secret_version.jwt.secret_string)["key"]
     }
   }
 

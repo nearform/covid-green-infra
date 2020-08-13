@@ -14,6 +14,11 @@ locals {
   # Will be used as a prefix for AWS parameters and secrets
   config_var_prefix = "${module.labels.id}-"
 
+  # ECS image values
+  ecs_api_image_uri        = coalesce(var.api_image_repo_url, format("%s:%s", aws_ecr_repository.api.repository_url, var.api_image_tag))
+  ecs_migrations_image_uri = coalesce(var.migrations_image_repo_url, format("%s:%s", aws_ecr_repository.migrations.repository_url, var.migrations_image_tag))
+  ecs_push_image_uri       = coalesce(var.push_image_repo_url, format("%s:%s", aws_ecr_repository.push.repository_url, var.push_image_tag))
+
   # Based on flag
   enable_certificates_count = var.enable_certificates ? 1 : 0
 

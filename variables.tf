@@ -147,6 +147,30 @@ variable "admins_role_require_mfa" {
 # #########################################
 # API & Lambda - Settings & Env vars
 # #########################################
+variable "api_image_repo_url" {
+  description = "ECR image repo to be deployed into ECS for the API container, includes the tag"
+  default     = ""
+}
+variable "api_image_tag" {
+  description = "ECR image tag to be deployed into ECS for the API container"
+  default     = "latest"
+}
+variable "migrations_image_repo_url" {
+  description = "ECR image repo to be deployed into ECS for the Migration container, includes the tag"
+  default     = ""
+}
+variable "migrations_image_tag" {
+  description = "ECR image tag to be deployed into ECS for the Migration container"
+  default     = "latest"
+}
+variable "push_image_repo_url" {
+  description = "ECR image repo to be deployed into ECS for the Push API container, includes the tag"
+  default     = ""
+}
+variable "push_image_tag" {
+  description = "ECR image tag to be deployed into ECS for the Push API container"
+  default     = "latest"
+}
 variable "api_listening_port" {
   default = 5000
 }
