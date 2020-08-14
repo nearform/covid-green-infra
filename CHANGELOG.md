@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file.
 
 <a name="unreleased"></a>
 ## [Unreleased]
-- Added: ALB logging - both ALBs log to the same bucket, using their own prefixs - api and push
 - Updated: Upgraded AWS provider from = 2.68.0 to ~> 2.70.0
 - Updated: Switched to using templatefile function rather than deprecated template provider
 
