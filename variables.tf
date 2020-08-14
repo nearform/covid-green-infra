@@ -312,6 +312,9 @@ variable "enable_legacy_settings" {
 variable "enable_metrics" {
   default = "true"
 }
+variable "certificate_audience" {
+  default = var.app_bundle_id
+}
 variable "default_country_code" {
   default = ""
 }
