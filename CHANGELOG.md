@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 <a name="unreleased"></a>
 ## [Unreleased]
+- Added: Added "verify" secret and changed "jwt_issuer" and "certificate_audience" parameters to support third party key server
 - Updated: Upgraded AWS provider from = 2.68.0 to ~> 2.70.0
 - Updated: Switched to using templatefile function rather than deprecated template provider
 
