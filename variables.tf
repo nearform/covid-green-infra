@@ -313,7 +313,7 @@ variable "enable_metrics" {
   default = "true"
 }
 variable "certificate_audience" {
-  default = var.app_bundle_id
+  default = ""
 }
 variable "default_country_code" {
   default = ""
