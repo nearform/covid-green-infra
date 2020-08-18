@@ -77,6 +77,11 @@ data "aws_iam_policy_document" "api_ecs_task_policy" {
       aws_sqs_queue.callback.arn
     ]
   }
+
+  statement {
+    actions = ["s3:GetObject"]
+    resources = ["rds-downloads"]
+  }
 }
 
 resource "aws_iam_policy" "api_ecs_task_policy" {
