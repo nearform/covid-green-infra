@@ -2,7 +2,9 @@
 
 All notable changes to this project will be documented in this file.
 
+
 ## [Unreleased]
+- Fixed: Removed RDS admin user access where not needed
 - Added: Added "verify" secret and changed "jwt_issuer" and "certificate_audience" parameters to support third party key server
 
 
