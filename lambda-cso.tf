@@ -22,10 +22,10 @@ data "aws_iam_policy_document" "cso_policy" {
 
   statement {
     actions = ["secretsmanager:GetSecretValue"]
-    resources = [
-      data.aws_secretsmanager_secret_version.cso.arn,
-      data.aws_secretsmanager_secret_version.rds_read_write.arn
-    ]
+    resources = concat(
+      [data.aws_secretsmanager_secret_version.rds_read_write.arn],
+      data.aws_secretsmanager_secret_version.cso.*.arn
+    )
   }
 }
 
