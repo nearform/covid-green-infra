@@ -13,13 +13,6 @@ data "aws_iam_policy_document" "settings_policy" {
   }
 
   statement {
-    actions = ["secretsmanager:GetSecretValue"]
-    resources = [
-      data.aws_secretsmanager_secret_version.rds_read_write.arn
-    ]
-  }
-
-  statement {
     actions = ["ssm:GetParameter"]
     resources = [
       aws_ssm_parameter.db_database.arn,
@@ -27,6 +20,13 @@ data "aws_iam_policy_document" "settings_policy" {
       aws_ssm_parameter.db_port.arn,
       aws_ssm_parameter.db_ssl.arn,
       aws_ssm_parameter.s3_assets_bucket.arn
+    ]
+  }
+
+  statement {
+    actions = ["secretsmanager:GetSecretValue"]
+    resources = [
+      data.aws_secretsmanager_secret_version.rds_read_write.arn
     ]
   }
 }
