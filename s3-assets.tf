@@ -19,7 +19,7 @@ resource "aws_s3_bucket_public_access_block" "assets" {
 
 resource "aws_s3_bucket_object" "agency_logo" {
   bucket = aws_s3_bucket.assets.id
+  etag   = filemd5(local.agency_logo_path)
   key    = var.agency_logo_s3_key
   source = local.agency_logo_path
-  etag   = filemd5(local.agency_logo_path)
 }

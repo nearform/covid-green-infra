@@ -2,6 +2,9 @@
 # Locals
 # #########################################
 locals {
+  # Agency logo
+  agency_logo_path = coalesce(var.agency_logo_path, format("%s/images/agency_logo.png", path.module))
+
   # Pick one, using the var if it is set, else failback to the one we manage
   alb_push_certificate_arn = coalesce(var.push_eu_certificate_arn, join("", aws_acm_certificate.wildcard_cert.*.arn))
 
@@ -55,7 +58,4 @@ locals {
   cloudtrail_log_group_name = join(" ", aws_cloudwatch_log_group.cloudtrail.*.name)
   # Cloudtrail log stream related:
   cloudtrail_log_stream_arn_pattern = "arn:aws:logs:${var.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:${local.cloudtrail_log_group_name}:log-stream:${data.aws_caller_identity.current.account_id}_CloudTrail_${var.aws_region}*"
-
-  # Agency logo
-  agency_logo_path = coalesce(var.agency_logo_path, "${path.module}/images/agency_logo.png")
 }

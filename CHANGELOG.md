@@ -2,8 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+Order is reverse-chronological.
+
+
 ## [Unreleased]
-- Added static resource served through the api to act as a logo 
+- Added: Added a static resource served through the api to act as a logo
 - Added: Added "verify" secret and changed "jwt_issuer" and "certificate_audience" parameters to support third party key server
 
 
