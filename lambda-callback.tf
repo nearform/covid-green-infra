@@ -41,6 +41,14 @@ data "aws_iam_policy_document" "callback_policy" {
       aws_kms_key.sqs.arn
     ]
   }
+
+  dynamic statement {
+    for_each = local.enable_callback_email_notifications_count > 0 ? { 1 : 1 } : {}
+    content {
+      actions   = ["sns:Publish"]
+      resources = aws_sns_topic.callback_email_notifications.*.arn
+    }
+  }
 }
 
 data "aws_iam_policy_document" "callback_assume_role" {
