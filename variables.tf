@@ -303,6 +303,9 @@ variable "app_bundle_id" {
 variable "enable_callback" {
   default = "true"
 }
+variable "enable_callback_email_notifications" {
+  default = "false"
+}
 variable "enable_check_in" {
   default = "true"
 }

@@ -15,13 +15,16 @@ data "aws_iam_policy_document" "callback_policy" {
 
   statement {
     actions = ["ssm:GetParameter"]
-    resources = [
-      aws_ssm_parameter.callback_url.arn,
-      aws_ssm_parameter.db_database.arn,
-      aws_ssm_parameter.db_host.arn,
-      aws_ssm_parameter.db_port.arn,
-      aws_ssm_parameter.db_ssl.arn
-    ]
+    resources = concat(
+      [
+        aws_ssm_parameter.callback_url.arn,
+        aws_ssm_parameter.db_database.arn,
+        aws_ssm_parameter.db_host.arn,
+        aws_ssm_parameter.db_port.arn,
+        aws_ssm_parameter.db_ssl.arn
+      ],
+      aws_ssm_parameter.callback_email_notifications_sns_arn.arn
+    )
   }
 
   statement {
