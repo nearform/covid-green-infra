@@ -360,6 +360,9 @@ variable "lambda_exposures_memory_size" {
 variable "lambda_exposures_timeout" {
   default = 15
 }
+variable "lambda_provisioned_concurrencies" {
+  default = {}
+}
 variable "lambda_settings_memory_size" {
   default = 128
 }
@@ -368,9 +371,6 @@ variable "lambda_settings_timeout" {
 }
 variable "lambda_sms_memory_size" {
   default = 128
-}
-variable "lambda_provisioned_concurrencies" {
-  default = {}
 }
 variable "lambda_sms_timeout" {
   default = 15
