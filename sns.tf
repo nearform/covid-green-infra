@@ -9,7 +9,7 @@ resource "aws_sns_topic" "callback_email_notifications" {
   tags              = module.labels.tags
 }
 
-resource "aws_sns_topic" "email_registrations_reporter" {
+resource "aws_sns_topic" "daily_registrations_reporter" {
   count = local.lambda_daily_registrations_reporter_count
 
   name              = "${module.labels.id}-daily-registrations-reporter"
