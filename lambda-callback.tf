@@ -38,6 +38,7 @@ data "aws_iam_policy_document" "callback_policy" {
   statement {
     actions = ["kms:*"]
     resources = [
+      aws_kms_key.sns.arn,
       aws_kms_key.sqs.arn
     ]
   }
