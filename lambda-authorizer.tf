@@ -59,10 +59,10 @@ resource "aws_iam_role_policy_attachment" "authorizer_logs" {
 
 resource "aws_lambda_function" "authorizer" {
   # Default is to use the stub file, but we need to cater for S3 bucket file being the source
-  filename         = local.lambdas_using_s3_as_source ? null : "${path.module}/.zip/${module.labels.id}_authorizer.zip"
-  s3_bucket        = local.lambdas_using_s3_as_source ? var.lambdas_custom_s3_bucket : null
-  s3_key           = local.lambdas_using_s3_as_source ? var.lambda_authorizer_s3_key : null
-  source_code_hash = local.lambdas_using_s3_as_source ? "" : data.archive_file.authorizer.output_base64sha256
+  filename         = local.lambdas_use_s3_as_source ? null : "${path.module}/.zip/${module.labels.id}_authorizer.zip"
+  s3_bucket        = local.lambdas_use_s3_as_source ? var.lambdas_custom_s3_bucket : null
+  s3_key           = local.lambdas_use_s3_as_source ? var.lambda_authorizer_s3_key : null
+  source_code_hash = local.lambdas_use_s3_as_source ? "" : data.archive_file.authorizer.output_base64sha256
 
   function_name = "${module.labels.id}-authorizer"
   handler       = "authorizer.handler"

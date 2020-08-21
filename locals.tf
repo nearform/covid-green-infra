@@ -51,7 +51,7 @@ locals {
   # Lambdas using S3 bucket as source - is a global value, so will apply to all of them
   # If set will assume the S3 key is provided and that a file exists in the bucket
   # Since this is an override, we do not manage this bucket or access to the same
-  lambdas_using_s3_as_source = var.lambdas_custom_s3_bucket != ""
+  lambdas_use_s3_as_source = var.lambdas_custom_s3_bucket != ""
 
   # RDS enhanced monitoring count
   rds_enhanced_monitoring_enabled_count = var.rds_enhanced_monitoring_interval > 0 ? 1 : 0
