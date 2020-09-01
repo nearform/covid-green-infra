@@ -52,7 +52,7 @@ Like so - may have to watch for funny chars needing escaping - ignored here
 generate-random() {
 	length=${1:-32}
 
-	LC_ALL=C tr -dc 'A-Za-z0-9'\''()*+,-./:;<=>?@[\]^_{|}~' </dev/urandom | head -c ${length} ; echo
+	LC_ALL=C tr -dc 'A-Za-z0-9()*+,-./:;<=>?[\]^_{|}~' </dev/urandom | head -c ${length} ; echo
 }
 
 generate-random-alphanumeric() {
