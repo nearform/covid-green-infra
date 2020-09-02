@@ -582,7 +582,7 @@ variable "sms_region" {
   default     = ""
 }
 variable "symptom_date_offset" {
-  description = "Offset in hours added to the symptom or onset date for uploads"
+  description = "Offset in hours subtracted from the symptom or onset date for uploads"
   default     = "0"
 }
 variable "time_zone" {
