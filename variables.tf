@@ -438,6 +438,10 @@ variable "lambda_callback_timeout" {
   description = "callback lambda timeout"
   default     = 15
 }
+variable "lambda_custom_runtimes" {
+  description = "Map of lambdas to use custom runtimes, where the value is the layers to use i.e. { \"authorizer\" : [\"some-arn\"] }"
+  default     = {}
+}
 variable "lambda_cso_memory_size" {
   description = "cso lambda memory size"
   default     = 3008
