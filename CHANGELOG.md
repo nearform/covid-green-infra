@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## [Unreleased]
+- Added: Default "lambda_default_runtime" variable - nodejs12.x
 - Added: Option to use lambda custom runtimes, see the "lambda_custom_runtimes" variable
 - Added: Ignore filename in lambda lifecycle
 - Added: Added extra parameter "symptom_date_offset" to add an offset in hours to symptomDate or onsetDate in uploads

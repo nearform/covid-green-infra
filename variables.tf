@@ -439,7 +439,7 @@ variable "lambda_callback_timeout" {
   default     = 15
 }
 variable "lambda_custom_runtimes" {
-  description = "Map of lambdas to use custom runtimes, where the value is the layers to use i.e. { \"authorizer\" : [\"some-arn\"] }"
+  description = "Map of lambdas to use custom runtimes, where the value is an object with the runtime and layers to use i.e. { \"authorizer\" : { \"runtime\": \"provided\", \"layers\": [\"some-arn\"] } }"
   default     = {}
 }
 variable "lambda_cso_memory_size" {
@@ -465,6 +465,10 @@ variable "lambda_daily_registrations_reporter_s3_key" {
 variable "lambda_daily_registrations_reporter_timeout" {
   description = "daily-registrations-reporter lambda timeout"
   default     = 15
+}
+variable "lambda_default_runtime" {
+  description = "Default lambda runtime"
+  default     = "nodejs12.x"
 }
 variable "lambda_download_memory_size" {
   description = "download lambda memory size"
