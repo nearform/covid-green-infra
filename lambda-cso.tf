@@ -91,7 +91,6 @@ resource "aws_lambda_function" "cso" {
   memory_size   = var.lambda_cso_memory_size
   role          = aws_iam_role.cso[0].arn
   runtime       = lookup(var.lambda_custom_runtimes, "cso", "NOT-FOUND") == "NOT-FOUND" ? var.lambda_default_runtime : var.lambda_custom_runtimes["cso"].runtime
-
   tags          = module.labels.tags
   timeout       = var.lambda_cso_timeout
 
