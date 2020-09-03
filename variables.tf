@@ -304,6 +304,10 @@ variable "daily_registrations_reporter_schedule" {
   description = "daily-registrations-reporter lambda CloudWatch schedule"
   default     = ""
 }
+variable "cleanup_schedule" {
+  description = "cleanup lambda CloudWatch schedule"
+  default     = "cron(0 * * * ? *)"
+}
 variable "download_schedule" {
   description = "download lambda CloudWatch schedule"
   default     = "cron(0 * * * ? *)"
@@ -445,6 +449,18 @@ variable "lambda_custom_runtimes" {
 variable "lambda_cso_memory_size" {
   description = "cso lambda memory size"
   default     = 3008
+}
+variable "lambda_cleanup_memory_size" {
+  description = "cleanup lambda memory size"
+  default     = 128
+}
+variable "lambda_cleanup_s3_key" {
+  description = "cleanup lambda S3 key if using - file path"
+  default     = ""
+}
+variable "lambda_cleanup_timeout" {
+  description = "cleanup lambda timeout"
+  default     = 15
 }
 variable "lambda_cso_s3_key" {
   description = "cso lambda S3 key if using - file path"
