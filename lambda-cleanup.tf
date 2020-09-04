@@ -1,7 +1,6 @@
 # Trigger:
 #	Cloudwatch cron schedule
 # Resources:
-#	KMS
 #	RDS
 #	Secret manager secrets
 #	SSM parameters
@@ -24,9 +23,10 @@ module "cleanup" {
   cloudwatch_schedule_expression = var.cleanup_schedule
   config_var_prefix              = local.config_var_prefix
   handler                        = "cleanup.handler"
-  kms_writer_arns                = [aws_kms_key.sqs.arn]
+  layers                         = lookup(var.lambda_custom_runtimes, "cleanup", "NOT-FOUND") == "NOT-FOUND" ? null : var.lambda_custom_runtimes["cleanup"].layers
   log_retention_days             = var.logs_retention_days
   memory_size                    = var.lambda_cleanup_memory_size
+  runtime                        = lookup(var.lambda_custom_runtimes, "cleanup", "NOT-FOUND") == "NOT-FOUND" ? var.lambda_default_runtime : var.lambda_custom_runtimes["cleanup"].runtime
   s3_bucket                      = var.lambdas_custom_s3_bucket
   s3_key                         = var.lambda_cleanup_s3_key
   security_group_ids             = [module.lambda_sg.id]
