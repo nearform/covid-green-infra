@@ -610,5 +610,9 @@ variable "upload_schedule" {
 variable "upload_token_lifetime_mins" {
   default = "1440"
 }
+variable "use_test_date_as_onset_date" {
+  description = "Flag to use the testDate as the onsetDate if the latter is omitted"
+  default     = "false"
+}
 variable "verify_rate_limit_secs" {
 }
