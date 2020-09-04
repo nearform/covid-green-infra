@@ -296,6 +296,10 @@ variable "log_level" {
 variable "arcgis_url" {
   default = ""
 }
+variable "cleanup_schedule" {
+  description = "cleanup lambda CloudWatch schedule"
+  default     = "cron(0 * * * ? *)"
+}
 variable "daily_registrations_reporter_email_subject" {
   description = "daily-registrations-reporter lambda email subject text"
   default     = ""
@@ -303,10 +307,6 @@ variable "daily_registrations_reporter_email_subject" {
 variable "daily_registrations_reporter_schedule" {
   description = "daily-registrations-reporter lambda CloudWatch schedule"
   default     = ""
-}
-variable "cleanup_schedule" {
-  description = "cleanup lambda CloudWatch schedule"
-  default     = "cron(0 * * * ? *)"
 }
 variable "download_schedule" {
   description = "download lambda CloudWatch schedule"
