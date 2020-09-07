@@ -2,7 +2,7 @@
 # CloudWatch
 # #########################################
 resource "aws_cloudwatch_log_group" "sns_sms_logs" {
-  count = var.enable_sms_publishing_with_aws_count
+  count = local.enable_sms_publishing_with_aws_count
 
   name              = format("/aws/lambda/%s-sns-sms-logs", module.labels.id)
   retention_in_days = var.logs_retention_days
@@ -38,7 +38,7 @@ data "aws_iam_policy_document" "sns_sms_logs_role" {
 }
 
 resource "aws_iam_policy" "sns_sms_policy" {
-  count = var.enable_sms_publishing_with_aws_count
+  count = local.enable_sms_publishing_with_aws_count
 
   name   = "${module.labels.id}-sns-sms-policy"
   path   = "/"
@@ -46,7 +46,7 @@ resource "aws_iam_policy" "sns_sms_policy" {
 }
 
 resource "aws_iam_role" "sns_sms_role" {
-  count = var.enable_sms_publishing_with_aws_count
+  count = local.enable_sms_publishing_with_aws_count
 
   assume_role_policy = data.aws_iam_policy_document.sns_sms_logs_role.json
   name               = "${module.labels.id}-sns-sms"
@@ -54,7 +54,7 @@ resource "aws_iam_role" "sns_sms_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "sns_sms_policy" {
-  count = var.enable_sms_publishing_with_aws_count
+  count = local.enable_sms_publishing_with_aws_count
 
   policy_arn = aws_iam_policy.sns_sms_policy[0].arn
   role       = aws_iam_role.sns_sms_role[0].name
@@ -64,7 +64,7 @@ resource "aws_iam_role_policy_attachment" "sns_sms_policy" {
 # SNS
 # #########################################
 resource "aws_sns_sms_preferences" "update_sms_prefs" {
-  count = var.enable_sms_publishing_with_aws_count
+  count = local.enable_sms_publishing_with_aws_count
 
   delivery_status_iam_role_arn          = aws_iam_role.sns_sms_role[0].arn
   delivery_status_success_sampling_rate = var.sms_delivery_status_success_sampling_rate
