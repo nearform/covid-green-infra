@@ -2,7 +2,7 @@
 # CloudWatch
 # #########################################
 resource "aws_cloudwatch_log_group" "sns_sms_logs" {
-  for_each = local.sns_sms_cloudwatch_log_group_names
+  for_each = toset(local.sns_sms_cloudwatch_log_group_names)
 
   name              = each.key
   retention_in_days = var.logs_retention_days
