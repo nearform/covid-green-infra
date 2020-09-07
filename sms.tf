@@ -2,9 +2,9 @@
 # CloudWatch
 # #########################################
 resource "aws_cloudwatch_log_group" "sns_sms_logs" {
-  count = local.enable_sms_publishing_with_aws_count
+  for_each = local.sns_sms_cloudwatch_log_group_names
 
-  name              = format("/aws/lambda/%s-sns-sms-logs", module.labels.id)
+  name              = each.key
   retention_in_days = var.logs_retention_days
   tags              = module.labels.tags
 }
