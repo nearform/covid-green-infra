@@ -629,6 +629,7 @@ variable "time_zone" {
   default     = "UTC"
 }
 variable "token_lifetime_mins" {
+  description = "Token lifetime in minutes"
 }
 variable "upload_max_keys" {
   description = "Maximum keys accepted in a single upload request"
