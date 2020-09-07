@@ -31,6 +31,9 @@ locals {
   # Based on flag
   enable_dns_count = var.enable_dns ? 1 : 0
 
+  # Based on flag
+  enable_sms_publishing_with_aws_count = var.enable_sms_publishing_with_aws ? 1 : 0
+
   # Need to only create one of these for an account/region
   gateway_api_account_count = var.api_gateway_account_creation_enabled ? 1 : 0
 

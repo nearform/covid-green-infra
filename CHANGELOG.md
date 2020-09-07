@@ -4,13 +4,14 @@ All notable changes to this project will be documented in this file.
 
 
 ## [Unreleased]
+- Updated: Fixed "time_zone" parameter value - used incorrect value previously
+- Added: Added parameter "security_code_removal_mins" to control number of minutes before a one-time upload code is removed from the database by the cleanup lambda
+- Added: Added parameter "upload_max_keys" to control maximum number of keys accepted per upload request
 - Added: Added option to configure SNS SMS spent quota
 - Added: Added option to configure SNS SMS delivery logs
 
 
 ## [v0.1.4] 2020-09-04
-- Added: Added parameter "security_code_removal_mins" to control number of minutes before a one-time upload code is removed from the database by the cleanup lambda
-- Added: Added parameter "upload_max_keys" to control maximum number of keys accepted per upload request
 - Added: Added parameter "use_test_date_as_onset_date" to flag whether to use testDate as onsetDate if the latter is omitted
 - Added: Added required lambda "cleanup" to handle data cleanup which runs on a CloudWatch schedule
 - Added: Default "lambda_default_runtime" variable - nodejs12.x
