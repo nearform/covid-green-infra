@@ -293,7 +293,7 @@ resource "aws_ssm_parameter" "time_zone" {
   overwrite = true
   name      = "${local.config_var_prefix}time_zone"
   type      = "String"
-  value     = var.sms_template
+  value     = var.time_zone
   tags      = module.labels.tags
 }
 
