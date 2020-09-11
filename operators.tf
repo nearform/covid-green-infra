@@ -44,7 +44,8 @@ data "aws_iam_policy_document" "operators" {
     sid = "MFAPersonalCreate"
     actions = [
       "iam:CreateVirtualMFADevice",
-      "iam:DeleteVirtualMFADevice"
+      "iam:DeleteVirtualMFADevice",
+      "iam:EnableMFADevice"
     ]
     resources = [format("arn:aws:iam::%s:mfa/$${aws:username}", data.aws_caller_identity.current.account_id)]
   }
