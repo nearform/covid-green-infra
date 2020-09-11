@@ -39,14 +39,14 @@ data "aws_iam_policy_document" "operators" {
   }
 
   # Allow own MFA management
-
+  # For the $${user_name} escaping see https://github.com/terraform-providers/terraform-provider-aws/issues/5984#issuecomment-424470589
   statement {
     sid = "MFAPersonalCreate"
     actions = [
       "iam:CreateVirtualMFADevice",
       "iam:DeleteVirtualMFADevice"
     ]
-    resources = [format("arn:aws:iam::%s:mfa/&{aws:username}", data.aws_caller_identity.current.account_id)]
+    resources = [format("arn:aws:iam::%s:mfa/$${aws:username}", data.aws_caller_identity.current.account_id)]
   }
 
   # Conditional
