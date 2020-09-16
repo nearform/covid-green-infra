@@ -35,7 +35,7 @@ resource "aws_api_gateway_resource" "api_healthcheck" {
 resource "aws_api_gateway_method" "api_healthcheck_get" {
   rest_api_id      = aws_api_gateway_rest_api.main.id
   resource_id      = aws_api_gateway_resource.api_healthcheck.id
-  http_method      = "ANY" # ********************* Temp for NYS *********************
+  http_method      = "GET"
   authorization    = "NONE"
   api_key_required = false
 
@@ -74,3 +74,53 @@ resource "aws_api_gateway_integration_response" "api_healthcheck_get_integration
 
   depends_on = [aws_api_gateway_integration.api_healthcheck_get_integration]
 }
+
+
+
+
+
+resource "aws_api_gateway_method" "api_healthcheck_head" {
+  rest_api_id      = aws_api_gateway_rest_api.main.id
+  resource_id      = aws_api_gateway_resource.api_healthcheck.id
+  http_method      = "HEAD"
+  authorization    = "NONE"
+  api_key_required = false
+
+  depends_on = [aws_api_gateway_resource.api_healthcheck]
+}
+
+resource "aws_api_gateway_integration" "api_healthcheck_head_integration" {
+  rest_api_id          = aws_api_gateway_rest_api.main.id
+  resource_id          = aws_api_gateway_resource.api_healthcheck.id
+  http_method          = aws_api_gateway_method.api_healthcheck_head.http_method
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
+  type                 = "MOCK"
+  request_templates = {
+    "application/json" = jsonencode({
+      statusCode = 204
+    })
+  }
+
+  depends_on = [aws_api_gateway_method.api_healthcheck_head]
+}
+
+resource "aws_api_gateway_method_response" "api_healthcheck_head" {
+  rest_api_id = aws_api_gateway_rest_api.main.id
+  resource_id = aws_api_gateway_resource.api_healthcheck.id
+  http_method = aws_api_gateway_method.api_healthcheck_head.http_method
+  status_code = "204"
+
+  depends_on = [aws_api_gateway_method.api_healthcheck_head]
+}
+
+resource "aws_api_gateway_integration_response" "api_healthcheck_head_integration" {
+  rest_api_id = aws_api_gateway_rest_api.main.id
+  resource_id = aws_api_gateway_resource.api_healthcheck.id
+  http_method = aws_api_gateway_method.api_healthcheck_head.http_method
+  status_code = aws_api_gateway_method_response.api_healthcheck_head.status_code
+
+  depends_on = [aws_api_gateway_integration.api_healthcheck_head_integration]
+}
+
+
+
