@@ -119,12 +119,5 @@ resource "aws_api_gateway_integration_response" "api_healthcheck_head_integratio
   http_method = aws_api_gateway_method.api_healthcheck_head.http_method
   status_code = aws_api_gateway_method_response.api_healthcheck_head.status_code
 
-  selection_pattern = "404"
-  response_templates = {
-    "application/json" = jsonencode({
-      some-data = "Some data"
-    })
-  }
-
   depends_on = [aws_api_gateway_integration.api_healthcheck_head_integration]
 }
