@@ -97,7 +97,7 @@ resource "aws_api_gateway_integration" "api_healthcheck_head_integration" {
   type                 = "MOCK"
   request_templates = {
     "application/json" = jsonencode({
-      statusCode = 404
+      statusCode = 204
     })
   }
 
@@ -118,6 +118,13 @@ resource "aws_api_gateway_integration_response" "api_healthcheck_head_integratio
   resource_id = aws_api_gateway_resource.api_healthcheck.id
   http_method = aws_api_gateway_method.api_healthcheck_head.http_method
   status_code = aws_api_gateway_method_response.api_healthcheck_head.status_code
+
+  selection_pattern = "-"
+  response_templates = {
+    "application/json" = jsonencode({
+      some-data = "Some data"
+    })
+  }
 
   depends_on = [aws_api_gateway_integration.api_healthcheck_head_integration]
 }
