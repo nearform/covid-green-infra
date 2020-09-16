@@ -97,7 +97,7 @@ resource "aws_api_gateway_integration" "api_healthcheck_head_integration" {
   type                 = "MOCK"
   request_templates = {
     "application/json" = jsonencode({
-      statusCode = 204
+      statusCode = 404
     })
   }
 
