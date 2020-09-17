@@ -1,3 +1,11 @@
+output "prefix_id" {
+  value = module.labels.id
+}
+
+output "default_tags" {
+  value = module.labels.tags
+}
+
 output "admins_role_arn" {
   description = "ARN of the role used for admins"
   value       = aws_iam_role.admins.arn
@@ -29,6 +37,10 @@ output "intra_subnets" {
 
 output "key" {
   value = aws_iam_access_key.ci_user.id
+}
+
+output "lambda_sg_id" {
+  value = module.lambda_sg.id
 }
 
 output "lambda_authorizer_name" {
