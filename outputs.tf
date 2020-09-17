@@ -1,11 +1,3 @@
-output "prefix_id" {
-  value = module.labels.id
-}
-
-output "default_tags" {
-  value = module.labels.tags
-}
-
 output "admins_role_arn" {
   description = "ARN of the role used for admins"
   value       = aws_iam_role.admins.arn
@@ -17,6 +9,10 @@ output "api_aws_dns" {
 
 output "cloudtrail_log_group_name" {
   value = join(" ", aws_cloudwatch_log_group.cloudtrail.*.name)
+}
+
+output "default_tags" {
+  value = module.labels.tags
 }
 
 output "ecs_cluster_api_service_name" {
@@ -93,6 +89,10 @@ output "public_subnets" {
 
 output "push_aws_dns" {
   value = aws_lb.push.dns_name
+}
+
+output "prefix_id" {
+  value = module.labels.id
 }
 
 output "rds_cluster_arn" {
