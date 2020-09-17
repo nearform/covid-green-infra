@@ -35,10 +35,6 @@ output "key" {
   value = aws_iam_access_key.ci_user.id
 }
 
-output "lambda_sg_id" {
-  value = module.lambda_sg.id
-}
-
 output "lambda_authorizer_name" {
   value = aws_lambda_function.authorizer.function_name
 }
@@ -63,6 +59,10 @@ output "lambda_names" {
   )
 }
 
+output "lambda_sg_id" {
+  value = module.lambda_sg.id
+}
+
 output "lb_api_arn" {
   value = aws_lb.api.arn
 }
@@ -79,6 +79,10 @@ output "lb_push_arn_suffix" {
   value = aws_lb.push.arn_suffix
 }
 
+output "prefix_id" {
+  value = module.labels.id
+}
+
 output "private_subnets" {
   value = module.vpc.private_subnets
 }
@@ -89,10 +93,6 @@ output "public_subnets" {
 
 output "push_aws_dns" {
   value = aws_lb.push.dns_name
-}
-
-output "prefix_id" {
-  value = module.labels.id
 }
 
 output "rds_cluster_arn" {
