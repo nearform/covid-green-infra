@@ -31,27 +31,28 @@ resource "aws_iam_role_policy_attachment" "rds_enhanced_monitoring" {
 }
 
 module "rds_cluster_aurora_postgres" {
-  source              = "cloudposse/rds-cluster/aws"
-  version             = "0.31.0"
-  engine              = "aurora-postgresql"
-  cluster_family      = var.rds_cluster_family
-  cluster_size        = var.rds_cluster_size
-  namespace           = var.namespace
-  stage               = var.environment
-  name                = "rds"
-  admin_user          = jsondecode(data.aws_secretsmanager_secret_version.rds.secret_string)["username"]
-  admin_password      = jsondecode(data.aws_secretsmanager_secret_version.rds.secret_string)["password"]
-  db_name             = var.rds_db_name
-  db_port             = "5432"
-  instance_type       = var.rds_instance_type
-  vpc_id              = module.vpc.vpc_id
-  subnets             = concat(module.vpc.intra_subnets, module.vpc.private_subnets)
-  storage_encrypted   = true
-  skip_final_snapshot = var.environment == "dev" ? true : false
-  backup_window       = "04:00-06:00"
-  security_groups     = concat([module.api_sg.id, module.push_sg.id, module.lambda_sg.id], aws_security_group.bastion.*.id)
-  retention_period    = var.rds_backup_retention
-  deletion_protection = true
+  source                 = "cloudposse/rds-cluster/aws"
+  version                = "0.31.0"
+  engine                 = "aurora-postgresql"
+  cluster_family         = var.rds_cluster_family
+  cluster_size           = var.rds_cluster_size
+  namespace              = var.namespace
+  stage                  = var.environment
+  name                   = "rds"
+  admin_user             = jsondecode(data.aws_secretsmanager_secret_version.rds.secret_string)["username"]
+  admin_password         = jsondecode(data.aws_secretsmanager_secret_version.rds.secret_string)["password"]
+  db_name                = var.rds_db_name
+  db_port                = "5432"
+  instance_type          = var.rds_instance_type
+  vpc_id                 = module.vpc.vpc_id
+  subnets                = concat(module.vpc.intra_subnets, module.vpc.private_subnets)
+  storage_encrypted      = true
+  skip_final_snapshot    = var.environment == "dev" ? true : false
+  backup_window          = "04:00-06:00"
+  security_groups        = concat([module.api_sg.id, module.push_sg.id, module.lambda_sg.id], aws_security_group.bastion.*.id)
+  vpc_security_group_ids = [ var.enable_quick_sight ? aws_security_group.quick_sight_sg[0].id : null ]
+  retention_period       = var.rds_backup_retention
+  deletion_protection    = true
 
   # Use standard perf insights
   performance_insights_enabled = true

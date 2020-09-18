@@ -150,6 +150,14 @@ variable "wildcard_domain" {
 }
 
 # #########################################
+# Quick Sight
+# #########################################
+variable "enable_quick_sight" {
+  description = "Flag to create or not security groups for quick sight"
+  default     = "false"
+}
+
+# #########################################
 # RDS Settings
 # #########################################
 variable "rds_backup_retention" {

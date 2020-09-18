@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 	- push_ecs_autoscale_scale_down_adjustment
 	- push_ecs_autoscale_scale_up_adjustment
 - Added: SUPPORT_REQUESTS.md
+- Added: Security Groups for AWS Quick Sight support 
 
 
 ## [v0.1.7] 2020-09-17
