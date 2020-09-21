@@ -54,9 +54,9 @@ module "rds_cluster_aurora_postgres" {
   retention_period       = var.rds_backup_retention
   deletion_protection    = true
   
-  depends_on = var.enable_quick_sight ? [
-    aws_security_group.quick_sight_sg[0]
-  ] : []
+  depends_on = [
+    aws_security_group.quick_sight_sg.*.id
+  ]
 
   # Use standard perf insights
   performance_insights_enabled = true
