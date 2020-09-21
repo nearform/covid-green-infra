@@ -9,10 +9,6 @@ resource "aws_security_group" "quick_sight_sg" {
   vpc_id      = module.vpc.vpc_id
   description = lower("${module.labels.id}-quick-sight-service security group")
   tags        = module.labels.tags
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_security_group_rule" "quick_sight_ingress" {
@@ -52,10 +48,6 @@ resource "aws_security_group" "quick_sight_service_sg" {
   description = lower("${module.labels.id}-quick-sight-service security group")
   tags        = module.labels.tags
 
-  lifecycle {
-    create_before_destroy = true
-  }
-  
   depends_on = [
     aws_security_group.quick_sight_sg[0]
   ]
