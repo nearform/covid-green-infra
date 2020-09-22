@@ -337,6 +337,14 @@ resource "aws_ssm_parameter" "use_test_date_as_onset_date" {
   tags      = module.labels.tags
 }
 
+resource "aws_ssm_parameter" "variance_offset_mins" {
+  overwrite = true
+  name      = "${local.config_var_prefix}variance_offset_mins"
+  type      = "String"
+  value     = var.variance_offset_mins
+  tags      = module.labels.tags
+}
+
 # #########################################
 # Optional parameters - These exist for some instances
 # #########################################

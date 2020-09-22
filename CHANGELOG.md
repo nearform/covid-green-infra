@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## [Unreleased]
+- Added: Added "variance_offset_mins" variable to add to lifetime of keys to check if they are still valid
 - Added: New "api_gateway_minimum_compression_size" to allow compression configuration on the APIGateway
 - Added: New variables to control ECS scaling adjustments
 	- api_ecs_autoscale_scale_down_adjustment

@@ -679,6 +679,10 @@ variable "use_test_date_as_onset_date" {
   description = "Flag to use the testDate as the onsetDate if the latter is omitted"
   default     = "false"
 }
+variable "variance_offset_mins" {
+  description = "Variance offset in minutes to add to lifetime of keys to check if they are still valid"
+  default     = "120"
+}
 variable "verify_rate_limit_secs" {
   description = "Time in seconds a user must wait before attempting to verify a one-time upload code"
 }

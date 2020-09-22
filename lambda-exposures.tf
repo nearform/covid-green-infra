@@ -22,7 +22,8 @@ data "aws_iam_policy_document" "exposures_policy" {
       aws_ssm_parameter.db_ssl.arn,
       aws_ssm_parameter.default_region.arn,
       aws_ssm_parameter.native_regions.arn,
-      aws_ssm_parameter.s3_assets_bucket.arn
+      aws_ssm_parameter.s3_assets_bucket.arn,
+      aws_ssm_parameter.variance_offset_mins.arn
     ]
   }
 
