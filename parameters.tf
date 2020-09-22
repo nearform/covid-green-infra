@@ -105,6 +105,14 @@ resource "aws_ssm_parameter" "default_region" {
   tags      = module.labels.tags
 }
 
+resource "aws_ssm_parameter" "disable_valid_key_check" {
+  overwrite = true
+  name      = "${local.config_var_prefix}disable_valid_key_check"
+  type      = "String"
+  value     = var.disable_valid_key_check
+  tags      = module.labels.tags
+}
+
 resource "aws_ssm_parameter" "enable_callback" {
   overwrite = true
   name      = "${local.config_var_prefix}enable_callback"
