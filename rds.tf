@@ -32,7 +32,13 @@ resource "aws_iam_role_policy_attachment" "rds_enhanced_monitoring" {
 
 module "rds_cluster_aurora_postgres" {
   source              = "cloudposse/rds-cluster/aws"
-  version             = "0.31.0"
+  version             = "0.34.0"
+  
+  # Providers - lets pass to the module
+  providers = {
+    aws = aws
+  }
+
   engine              = "aurora-postgresql"
   cluster_family      = var.rds_cluster_family
   cluster_size        = var.rds_cluster_size
