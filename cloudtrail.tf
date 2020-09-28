@@ -7,10 +7,10 @@ resource "aws_cloudtrail" "cloudtrail" {
   include_global_service_events = true
   is_multi_region_trail         = true
   name                          = format("%s-%s", module.labels.id, "cloudtrail")
-  s3_bucket_name                = aws_s3_bucket.cloudtrail.0.id
+  s3_bucket_name                = aws_s3_bucket.cloudtrail[0].id
   tags                          = module.labels.tags
-  cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail_cloudwatch_role.0.arn
-  cloud_watch_logs_group_arn    = aws_cloudwatch_log_group.cloudtrail.0.arn
+  cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail_cloudwatch_role[0].arn
+  cloud_watch_logs_group_arn    = aws_cloudwatch_log_group.cloudtrail[0].arn
 }
 
 resource "aws_cloudwatch_log_group" "cloudtrail" {
