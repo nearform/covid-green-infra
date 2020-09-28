@@ -472,7 +472,7 @@ variable "lambda_download_timeout" {
 }
 variable "lambda_exposures_memory_size" {
   description = "exposures lambda memory size"
-  default     = 128
+  default     = 256
 }
 variable "lambda_exposures_s3_key" {
   description = "exposures lambda S3 key if using - file path"
