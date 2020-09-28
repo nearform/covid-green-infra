@@ -76,8 +76,8 @@ EOF
 
 resource "aws_iam_role_policy_attachment" "cloudwatch_cloudtrail_attachment" {
   count      = local.enable_cloudtrail_count
-  role       = aws_iam_role.cloudtrail_cloudwatch_role.0.name
-  policy_arn = aws_iam_policy.cloudtrail_cloudwatch_policy.0.arn
+  role       = aws_iam_role.cloudtrail_cloudwatch_role[0].name
+  policy_arn = aws_iam_policy.cloudtrail_cloudwatch_policy[0].arn
 }
 
 resource "aws_s3_bucket" "cloudtrail" {
