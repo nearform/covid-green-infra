@@ -3,7 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 ##  Unreleased
-- Updated: "lambda_exposures_timeout" variable default to 180s as we have observed current 30s is insufficent for many tenants
+- Updated: "lambda_callback_timeout" variable default to 180s as we have observed current 15s is insufficent for many tenants
+- Updated: "lambda_exposures_timeout" variable default to 180s as we have observed current 60s is insufficent for many tenants
+- Updated: "lambda_sms_timeout" variable default to 180s as we have observed current 15s is insufficent for many tenants
 - Added: "cso_schedule" variable to control the cso lambda schedule
 - Deleted: ci-user security access key credentials, so they are not included in the statefile and output
 - Added: CloudWatch container insights activation option - default is disabled
