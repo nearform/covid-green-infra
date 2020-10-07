@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 ## Unreleased
-
+- Added: Optional parameters "security_callback_rate_limit_request_count" and "security_callback_rate_limit_secs"
 
 ## [v0.1.10] 2020-10-07
 - Updated: "lambda_callback_timeout" variable default to 180s as we have observed current 15s is insufficent for many tenants
