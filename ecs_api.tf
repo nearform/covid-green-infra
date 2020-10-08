@@ -30,7 +30,7 @@ resource "aws_iam_role" "api_ecs_task_role" {
 data "aws_iam_policy_document" "api_ecs_task_policy" {
   statement {
     actions = ["ssm:GetParameter"]
-    resources = merge([
+    resources = concat([
       aws_ssm_parameter.api_host.arn,
       aws_ssm_parameter.api_port.arn,
       aws_ssm_parameter.callback_url.arn,
