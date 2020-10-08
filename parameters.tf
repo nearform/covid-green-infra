@@ -382,24 +382,6 @@ resource "aws_ssm_parameter" "callback_email_notifications_sns_arn" {
   tags      = module.labels.tags
 }
 
-resource "aws_ssm_parameter" "security_callback_rate_limit_request_count" {
-  count     = contains(var.optional_parameters_to_include, "security_callback_rate_limit_request_count") ? 1 : 0
-  overwrite = true
-  name      = "${local.config_var_prefix}security_callback_rate_limit_request_count"
-  type      = "String"
-  value     = var.callback_rate_limit_request_count
-  tags      = module.labels.tags
-}
-
-resource "aws_ssm_parameter" "security_callback_rate_limit_secs" {
-  count     = contains(var.optional_parameters_to_include, "security_callback_rate_limit_secs") ? 1 : 0
-  overwrite = true
-  name      = "${local.config_var_prefix}security_callback_rate_limit_secs"
-  type      = "String"
-  value     = var.callback_rate_limit_secs
-  tags      = module.labels.tags
-}
-
 resource "aws_ssm_parameter" "daily_registrations_reporter_email_subject" {
   count     = contains(var.optional_parameters_to_include, "daily_registrations_reporter_email_subject") ? 1 : 0
   overwrite = true
@@ -415,5 +397,23 @@ resource "aws_ssm_parameter" "daily_registrations_reporter_sns_arn" {
   name      = "${local.config_var_prefix}daily_registrations_reporter_sns_arn"
   type      = "String"
   value     = join("", aws_sns_topic.daily_registrations_reporter.*.arn)
+  tags      = module.labels.tags
+}
+
+resource "aws_ssm_parameter" "security_callback_rate_limit_request_count" {
+  count     = contains(var.optional_parameters_to_include, "security_callback_rate_limit_request_count") ? 1 : 0
+  overwrite = true
+  name      = "${local.config_var_prefix}security_callback_rate_limit_request_count"
+  type      = "String"
+  value     = var.callback_rate_limit_request_count
+  tags      = module.labels.tags
+}
+
+resource "aws_ssm_parameter" "security_callback_rate_limit_secs" {
+  count     = contains(var.optional_parameters_to_include, "security_callback_rate_limit_secs") ? 1 : 0
+  overwrite = true
+  name      = "${local.config_var_prefix}security_callback_rate_limit_secs"
+  type      = "String"
+  value     = var.callback_rate_limit_secs
   tags      = module.labels.tags
 }
