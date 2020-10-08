@@ -73,6 +73,11 @@ variable "account_password_require_symbols" {
   type        = bool
   default     = null
 }
+variable "enforce_mfa" {
+  description = "Enforce MFA to be enabled on all groups"
+  type        = bool
+  default     = false
+}
 
 # #########################################
 # Admins role
