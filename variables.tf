@@ -80,15 +80,6 @@ variable "enforce_mfa" {
 }
 
 # #########################################
-# Admins role
-# #########################################
-variable "admins_role_require_mfa" {
-  # Turning this on is fine with the AWS CLI but is tricky with TF and we have multiple accounts in play in some envs
-  description = "Require MFA for assuming the admins IAM role"
-  default     = false
-}
-
-# #########################################
 # APIGateway
 # If we want to limit here we can set the throttling_ values - currently -1 = no throttling
 # #########################################

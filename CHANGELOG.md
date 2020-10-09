@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 
 ## Unreleased
-
+- Removed: `backend` defintion since now is always defined in the implementations
+- Added: `enforce_mfa`variable to enforce MFA on all groups
+- Added: Ability to enforce AWS account password policy
 
 ## [v0.1.11] 2020-10-08
 - Added: Optional parameters "security_callback_rate_limit_request_count" and "security_callback_rate_limit_secs"

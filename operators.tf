@@ -227,6 +227,7 @@ resource "aws_iam_group_policy" "operators" {
 }
 
 resource "aws_iam_group_policy" "operators_mfa" {
+  count  = var.enforce_mfa ? 1 : 0
   group  = aws_iam_group.operators.id
   name   = format("%s-%s", module.labels.id, "operators-mfa")
   policy = data.aws_iam_policy_document.operators_mfa.json
