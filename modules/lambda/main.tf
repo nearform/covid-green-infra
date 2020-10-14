@@ -220,13 +220,13 @@ data "aws_iam_policy_document" "this" {
   dynamic statement {
     for_each = length(var.ses_send_emails_from_email_addresses) > 0 ? { 1 : 1 } : {}
     content {
-      actions   = ["ses:SendEmail", "ses:SendRawEmail"]
-      resources = "*"
-      condition = {
+      actions = ["ses:SendEmail", "ses:SendRawEmail"]
+      condition {
         test     = "StringLike"
-        variable = "ses:FromAddress"
         values   = var.ses_send_emails_from_email_addresses
+        variable = "ses:FromAddress"
       }
+      resources = "*"
     }
   }
 
