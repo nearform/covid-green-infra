@@ -226,7 +226,7 @@ data "aws_iam_policy_document" "this" {
         values   = var.ses_send_emails_from_email_addresses
         variable = "ses:FromAddress"
       }
-      resources = "*"
+      resources = ["*"]
     }
   }
 
