@@ -6,7 +6,7 @@ resource "aws_api_gateway_rest_api" "main" {
   minimum_compression_size = var.api_gateway_minimum_compression_size
   tags                     = module.labels.tags
 
-  binary_media_types = merge([
+  binary_media_types = concat([
     "application/zip",
     "application/octet-stream",
   ], var.api_gateway_customizations_binary_types)
