@@ -21,11 +21,61 @@ variable "profile" {
 }
 
 # #########################################
-# Admins role
+# AWS Account
 # #########################################
-variable "admins_role_require_mfa" {
-  # Turning this on is fine with the AWS CLI but is tricky with TF and we have multiple accounts in play in some envs
-  description = "Require MFA for assuming the admins IAM role"
+variable "create_account_password_policy" {
+  description = "Enforce IAM password policy on the AWS account"
+  type        = bool
+  default     = false
+}
+variable "allow_users_to_change_account_password" {
+  description = "Whether to allow users to change their own password"
+  type        = bool
+  default     = null
+}
+variable "account_password_max_age" {
+  description = "The number of days that an user password is valid"
+  type        = number
+  default     = null
+}
+variable "account_password_minimum_length" {
+  description = "Minimum length to require for user passwords"
+  type        = number
+  default     = null
+}
+variable "account_password_hard_expiry" {
+  description = "Whether users are prevented from setting a new password after their password has expired (i.e. require administrator reset)"
+  type        = bool
+  default     = null
+}
+variable "account_password_reuse_prevention" {
+  description = "The number of previous passwords that users are prevented from reusing"
+  type        = number
+  default     = null
+}
+variable "account_password_require_lowercase_characters" {
+  description = "Whether to require lowercase characters for user passwords"
+  type        = bool
+  default     = null
+}
+variable "account_password_require_uppercase_characters" {
+  description = "Whether to require uppercase characters for user passwords"
+  type        = bool
+  default     = null
+}
+variable "account_password_require_numbers" {
+  description = "Whether to require numbers for user passwords"
+  type        = bool
+  default     = null
+}
+variable "account_password_require_symbols" {
+  description = "Whether to require symbols for user passwords"
+  type        = bool
+  default     = null
+}
+variable "enforce_mfa" {
+  description = "Enforce MFA to be enabled on all groups"
+  type        = bool
   default     = false
 }
 

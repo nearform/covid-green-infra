@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "admins_role" {
     actions = ["sts:AssumeRole"]
 
     dynamic condition {
-      for_each = var.admins_role_require_mfa ? { 1 : 1 } : {}
+      for_each = var.enforce_mfa ? { 1 : 1 } : {}
       content {
         test     = "Bool"
         variable = "aws:MultiFactorAuthPresent"

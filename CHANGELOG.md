@@ -4,7 +4,9 @@ All notable changes to this project will be documented in this file.
 
 
 ## Unreleased
-
+- Removed: `backend` defintion since now is always defined in the implementations
+- Added: `enforce_mfa`variable to enforce MFA on all groups
+- Added: Ability to enforce AWS account password policy
 
 ## [v0.1.12] 2020-10-28
 - Updated: Set queue visibility timeout based on lambda timeout
