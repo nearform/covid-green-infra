@@ -1,7 +1,7 @@
 data "archive_file" "stats" {
   type        = "zip"
   output_path = "${path.module}/.zip/${module.labels.id}_stats.zip"
-  source_file = "${path.module}/templates/lambda-placeholder.js"
+  source_file = local.lambda_placeholder_location
 }
 
 data "aws_iam_policy_document" "stats_policy" {
@@ -72,7 +72,7 @@ resource "aws_iam_role_policy_attachment" "stats_policy" {
 
 resource "aws_iam_role_policy_attachment" "stats_aws_managed_policy" {
   role       = aws_iam_role.stats.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+  policy_arn = var.iam_policy_lambda_vpc_access_execution_role
 }
 
 resource "aws_lambda_function" "stats" {

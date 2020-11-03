@@ -60,7 +60,7 @@ data "aws_iam_policy_document" "push_ecs_task_policy" {
 }
 
 resource "aws_iam_role" "push_ecs_task_execution" {
-  name               = "${module.labels.id}-push-task-exec-role"
+  name               = format("%s-%s", module.labels.id, "push-task-exec-role")
   assume_role_policy = data.aws_iam_policy_document.push_ecs_assume_role_policy.json
 }
 
@@ -70,12 +70,12 @@ resource "aws_iam_role_policy_attachment" "push_ecs_task_execution" {
 }
 
 resource "aws_iam_role" "push_ecs_task_role" {
-  name               = "${module.labels.id}-push-task-role"
+  name               = format("%s-%s", module.labels.id, "push-task-role")
   assume_role_policy = data.aws_iam_policy_document.push_ecs_assume_role_policy.json
 }
 
 resource "aws_iam_policy" "push_ecs_task_policy" {
-  name   = "${module.labels.id}-ecs-push-task-policy"
+  name   = format("%s-%s", module.labels.id, "ecs-push-task-policy")
   path   = "/"
   policy = data.aws_iam_policy_document.push_ecs_task_policy.json
 }
@@ -89,7 +89,7 @@ resource "aws_iam_role_policy_attachment" "push_ecs_task_policy" {
 # Push Service
 # #########################################
 resource "aws_ecs_task_definition" "push" {
-  family                   = "${module.labels.id}-push"
+  family                   = format("%s-%s", module.labels.id, "push")
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = var.push_services_task_cpu
@@ -111,7 +111,7 @@ resource "aws_ecs_task_definition" "push" {
 }
 
 resource "aws_ecs_service" "push" {
-  name            = "${module.labels.id}-push"
+  name            = format("%s-%s", module.labels.id, "push")
   cluster         = aws_ecs_cluster.services.id
   launch_type     = "FARGATE"
   task_definition = aws_ecs_task_definition.push.arn
@@ -159,7 +159,7 @@ module "push_autoscale" {
 # API log group
 # #########################################
 resource "aws_cloudwatch_log_group" "push" {
-  name              = "${module.labels.id}-push"
+  name              = format("%s-%s", module.labels.id, "push")
   retention_in_days = var.logs_retention_days
   tags              = module.labels.tags
 
@@ -174,7 +174,7 @@ resource "aws_cloudwatch_log_group" "push" {
 module "push_sg" {
   source      = "./modules/security-group"
   open_egress = true
-  name        = "${module.labels.id}-push"
+  name        = format("%s-%s", module.labels.id, "push")
   environment = var.environment
   vpc_id      = module.vpc.vpc_id
   tags        = module.labels.tags

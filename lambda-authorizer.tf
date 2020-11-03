@@ -1,7 +1,11 @@
+locals {
+  lambda_authorizer_archive_location = format("%s/.zip/%s_authorizer.zip", path.module, module.labels.id)
+}
+
 data "archive_file" "authorizer" {
   type        = "zip"
-  output_path = "${path.module}/.zip/${module.labels.id}_authorizer.zip"
-  source_file = "${path.module}/templates/lambda-placeholder.js"
+  output_path = local.lambda_authorizer_archive_location
+  source_file = local.lambda_placeholder_location
 }
 
 data "aws_iam_policy_document" "authorizer_policy" {
@@ -36,13 +40,13 @@ resource "aws_cloudwatch_log_group" "authorizer" {
 }
 
 resource "aws_iam_policy" "authorizer_policy" {
-  name   = "${module.labels.id}-lambda-authorizer-policy"
+  name   = format("%s-%s", module.labels.id, "lambda-authorizer-policy")
   path   = "/"
   policy = data.aws_iam_policy_document.authorizer_policy.json
 }
 
 resource "aws_iam_role" "authorizer" {
-  name               = "${module.labels.id}-lambda-authorizer"
+  name               = format("%s-%s", module.labels.id, "lambda-authorizer")
   assume_role_policy = data.aws_iam_policy_document.authorizer_assume_role.json
   tags               = module.labels.tags
 }
@@ -54,12 +58,12 @@ resource "aws_iam_role_policy_attachment" "authorizer_policy" {
 
 resource "aws_iam_role_policy_attachment" "authorizer_logs" {
   role       = aws_iam_role.authorizer.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  policy_arn = var.iam_policy_lambda_execution_role
 }
 
 resource "aws_lambda_function" "authorizer" {
   # Default is to use the stub file, but we need to cater for S3 bucket file being the source
-  filename         = local.lambdas_use_s3_as_source ? null : "${path.module}/.zip/${module.labels.id}_authorizer.zip"
+  filename         = local.lambdas_use_s3_as_source ? null : local.lambda_authorizer_archive_location
   s3_bucket        = local.lambdas_use_s3_as_source ? var.lambdas_custom_s3_bucket : null
   s3_key           = local.lambdas_use_s3_as_source ? var.lambda_authorizer_s3_key : null
   source_code_hash = local.lambdas_use_s3_as_source ? "" : data.archive_file.authorizer.output_base64sha256
@@ -95,7 +99,7 @@ resource "aws_lambda_function" "authorizer" {
 resource "aws_lambda_alias" "authorizer_live" {
   count = lookup(var.lambda_provisioned_concurrencies, "authorizer", "NOT-FOUND") != "NOT-FOUND" ? 1 : 0
 
-  name             = "${module.labels.id}-authorizer-live" # Could have used a short name here
+  name             = format("%s-authorizer-live", module.labels.id) # Could have used a short name here
   description      = format("%s-authorizer live", module.labels.id)
   function_name    = aws_lambda_function.authorizer.arn
   function_version = aws_lambda_function.authorizer.version # Note we cannot use $LATEST

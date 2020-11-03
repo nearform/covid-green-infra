@@ -31,22 +31,22 @@ module "vpc" {
   enable_dns_support   = true
 
   public_subnet_tags = {
-    Name = "${module.labels.id}-public"
+    Name = format("%s-public", module.labels.id)
   }
   public_route_table_tags = {
-    Name = "${module.labels.id}-public"
+    Name = format("%s-public", module.labels.id)
   }
   private_subnet_tags = {
-    Name = "${module.labels.id}-private"
+    Name = format("%s-private", module.labels.id)
   }
   private_route_table_tags = {
-    Name = "${module.labels.id}-private"
+    Name = format("%s-private", module.labels.id)
   }
   intra_subnet_tags = {
-    Name = "${module.labels.id}-intra"
+    Name = format("%s-intra", module.labels.id)
   }
   intra_route_table_tags = {
-    Name = "${module.labels.id}-intra"
+    Name = format("%s-intra", module.labels.id)
   }
 
   enable_s3_endpoint = true
@@ -86,7 +86,7 @@ module "vpc" {
 }
 
 resource "aws_security_group" "vpce" {
-  name   = "${module.labels.id}-endpoints"
+  name   = format("%s-endpoints", module.labels.id)
   vpc_id = module.vpc.vpc_id
   ingress {
     from_port   = 443

@@ -5,7 +5,7 @@ resource "aws_iam_user" "ci_user" {
 
 resource "aws_iam_user_policy_attachment" "ci_user_ecr" {
   user       = aws_iam_user.ci_user.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
+  policy_arn = var.iam_policy_container_registry_full_access
 }
 
 data "aws_iam_policy_document" "ci_user" {
@@ -55,19 +55,19 @@ data "aws_iam_policy_document" "ci_user_pass_role" {
 }
 
 resource "aws_iam_user_policy" "ci_user_general" {
-  name   = "${module.labels.id}-ci-user"
+  name   = format("%s-ci-user", module.labels.id)
   user   = aws_iam_user.ci_user.name
   policy = data.aws_iam_policy_document.ci_user.json
 }
 
 resource "aws_iam_user_policy" "ci_user_lambda" {
-  name   = "${module.labels.id}-ci-user_lambda"
+  name   = format("%s-ci-user_lambda", module.labels.id)
   user   = aws_iam_user.ci_user.name
   policy = data.aws_iam_policy_document.ci_user_lambda.json
 }
 
 resource "aws_iam_user_policy" "ci_user_pass_role" {
-  name   = "${module.labels.id}-ci-user_pass_role"
+  name   = format("%s-ci-user_pass_role", module.labels.id)
   user   = aws_iam_user.ci_user.name
   policy = data.aws_iam_policy_document.ci_user_pass_role.json
 }

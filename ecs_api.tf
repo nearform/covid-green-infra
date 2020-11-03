@@ -13,7 +13,7 @@ data "aws_iam_policy_document" "api_ecs_assume_role_policy" {
 }
 
 resource "aws_iam_role" "api_ecs_task_execution" {
-  name               = "${module.labels.id}-api-task-exec-role"
+  name               = format("%s-%s", module.labels.id, "api-task-exec-role")
   assume_role_policy = data.aws_iam_policy_document.api_ecs_assume_role_policy.json
 }
 
@@ -23,7 +23,7 @@ resource "aws_iam_role_policy_attachment" "api_ecs_task_execution" {
 }
 
 resource "aws_iam_role" "api_ecs_task_role" {
-  name               = "${module.labels.id}-api-task-role"
+  name               = format("%s-%s", module.labels.id, "api-task-role")
   assume_role_policy = data.aws_iam_policy_document.api_ecs_assume_role_policy.json
 }
 
@@ -91,7 +91,7 @@ data "aws_iam_policy_document" "api_ecs_task_policy" {
 }
 
 resource "aws_iam_policy" "api_ecs_task_policy" {
-  name   = "${module.labels.id}-ecs-api-task-policy"
+  name   = format("%s-%s", module.labels.id, "ecs-api-task-policy")
   path   = "/"
   policy = data.aws_iam_policy_document.api_ecs_task_policy.json
 }
@@ -105,7 +105,7 @@ resource "aws_iam_role_policy_attachment" "api_ecs_task_policy" {
 # API Service
 # #########################################
 resource "aws_ecs_task_definition" "api" {
-  family                   = "${module.labels.id}-api"
+  family                   = format("%s-%s", module.labels.id, "api")
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = var.api_services_task_cpu
@@ -128,7 +128,7 @@ resource "aws_ecs_task_definition" "api" {
 }
 
 resource "aws_ecs_service" "api" {
-  name            = "${module.labels.id}-api"
+  name            = format("%s-%s", module.labels.id, "api")
   cluster         = aws_ecs_cluster.services.id
   launch_type     = "FARGATE"
   task_definition = aws_ecs_task_definition.api.arn
@@ -176,7 +176,7 @@ module "api_autoscale" {
 # API log group
 # #########################################
 resource "aws_cloudwatch_log_group" "api" {
-  name              = "${module.labels.id}-api"
+  name              = format("%s-%s", module.labels.id, "api")
   retention_in_days = var.logs_retention_days
   tags              = module.labels.tags
 
@@ -191,7 +191,7 @@ resource "aws_cloudwatch_log_group" "api" {
 module "api_sg" {
   source      = "./modules/security-group"
   open_egress = true
-  name        = "${module.labels.id}-api"
+  name        = format("%s-%s", module.labels.id, "api")
   environment = var.environment
   vpc_id      = module.vpc.vpc_id
   tags        = module.labels.tags
