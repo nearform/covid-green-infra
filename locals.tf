@@ -2,6 +2,9 @@
 # Locals
 # #########################################
 locals {
+  # IAM policies prefix/comon name
+  iam_policies_common_name = format("%s%s%s", module.labels.id, module.labels.delimiter, var.aws_region)
+
   # Pick one, using the var if it is set, else failback to the one we manage
   alb_push_certificate_arn = coalesce(var.push_eu_certificate_arn, join("", aws_acm_certificate.wildcard_cert.*.arn))
 
@@ -47,6 +50,9 @@ locals {
 
   # Based on either of DNS enabled OR (We have an api_dns AND and api_us_certificate_arn)
   gateway_api_domain_name_count = var.enable_dns || (var.api_dns != "" && var.api_us_certificate_arn != "") ? 1 : 0
+
+  ## common lambda placeholder location
+  lambda_placeholder_location = format("%s/templates/lambda-placeholder.js", path.module)
 
   # Lambda creation counts
   lambda_cso_count                          = contains(var.optional_lambdas_to_include, "cso") ? 1 : 0

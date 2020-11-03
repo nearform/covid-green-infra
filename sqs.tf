@@ -3,7 +3,7 @@
 # See for KMS usage https://github.com/xpolb01/terraform-encrypted-sqs-sns/blob/master/sqs.tf
 # #########################################
 resource "aws_sqs_queue" "callback" {
-  name              = "${module.labels.id}-callback"
+  name              = format("%s-callback", module.labels.id)
   kms_master_key_id = aws_kms_alias.sqs.arn
   tags              = module.labels.tags
   # AWS recommends setting vis_timeout to _at least_ lambda_timeout * 6
@@ -12,7 +12,7 @@ resource "aws_sqs_queue" "callback" {
 }
 
 resource "aws_sqs_queue" "sms" {
-  name              = "${module.labels.id}-sms"
+  name              = format("%s-sms", module.labels.id)
   kms_master_key_id = aws_kms_alias.sqs.arn
   tags              = module.labels.tags
   # AWS recommends setting vis_timeout to _at least_ lambda_timeout * 6

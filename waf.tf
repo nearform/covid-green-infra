@@ -1,6 +1,6 @@
 resource "aws_wafregional_web_acl" "acl" {
-  name        = "${module.labels.id}-waf"
-  metric_name = "ftWaf${var.environment}"
+  name        = format("%s-waf", module.labels.id)
+  metric_name = format("ftWaf%s", var.environment)
 
   tags = module.labels.tags
 
@@ -49,7 +49,7 @@ resource "aws_wafregional_web_acl" "acl" {
 resource "aws_wafregional_geo_match_set" "geo_allowed" {
   count = local.waf_geo_blocking_count
 
-  name = "${module.labels.id}-geo-allowed"
+  name = format("%s-geo-allowed", module.labels.id)
 
   dynamic geo_match_constraint {
     for_each = toset(var.waf_geo_allowed_countries)
@@ -63,8 +63,8 @@ resource "aws_wafregional_geo_match_set" "geo_allowed" {
 
 resource "aws_wafregional_rule" "geo_allowed" {
   count       = local.waf_geo_blocking_count
-  name        = "${module.labels.id}-geo-allowed"
-  metric_name = "ftGEO${var.environment}"
+  name        = format("%s-geo-allowed", module.labels.id)
+  metric_name = format("ftGEO%s", var.environment)
 
   predicate {
     data_id = aws_wafregional_geo_match_set.geo_allowed[0].id
@@ -75,7 +75,7 @@ resource "aws_wafregional_rule" "geo_allowed" {
 
 ## slq injection
 resource "aws_wafregional_sql_injection_match_set" "sqli" {
-  name = "${module.labels.id}-generic-sqli"
+  name = format("%s-generic-sqli", module.labels.id)
 
   sql_injection_match_tuple {
     text_transformation = "HTML_ENTITY_DECODE"
@@ -163,8 +163,8 @@ resource "aws_wafregional_sql_injection_match_set" "sqli" {
 }
 
 resource "aws_wafregional_rule" "sqli" {
-  name        = "${module.labels.id}-generic-sqli"
-  metric_name = "ftSQLI${var.environment}"
+  name        = format("%s-generic-sqli", module.labels.id)
+  metric_name = format("ftSQLI%s", var.environment)
 
   predicate {
     data_id = aws_wafregional_sql_injection_match_set.sqli.id
@@ -175,7 +175,7 @@ resource "aws_wafregional_rule" "sqli" {
 
 ## xss
 resource "aws_wafregional_xss_match_set" "xss" {
-  name = "${module.labels.id}-generic-xss"
+  name = format("%s-generic-xss", module.labels.id)
 
   xss_match_tuple {
     text_transformation = "HTML_ENTITY_DECODE"
@@ -245,8 +245,8 @@ resource "aws_wafregional_xss_match_set" "xss" {
 }
 
 resource "aws_wafregional_rule" "xss" {
-  name        = "${module.labels.id}-generic-xss"
-  metric_name = "ftXSS${var.environment}"
+  name        = format("%s-generic-xss", module.labels.id)
+  metric_name = format("ftXSS%s", var.environment)
 
   predicate {
     data_id = aws_wafregional_xss_match_set.xss.id

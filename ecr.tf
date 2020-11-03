@@ -66,25 +66,25 @@ data "aws_iam_policy_document" "read" {
 }
 
 resource "aws_iam_policy" "login" {
-  name        = "${module.labels.id}${module.labels.delimiter}${var.aws_region}${module.labels.delimiter}login"
+  name        = format("%s-%s", local.iam_policies_common_name, "login")
   description = "Allow IAM Users to call ecr:GetAuthorizationToken"
   policy      = data.aws_iam_policy_document.login.json
 }
 
 resource "aws_iam_policy" "read" {
-  name        = "${module.labels.id}${module.labels.delimiter}${var.aws_region}${module.labels.delimiter}read"
+  name        = format("%s-%s", local.iam_policies_common_name, "read")
   description = "Allow IAM Users to pull from ECR"
   policy      = data.aws_iam_policy_document.read.json
 }
 
 resource "aws_iam_policy" "write" {
-  name        = "${module.labels.id}${module.labels.delimiter}${var.aws_region}${module.labels.delimiter}write"
+  name        = format("%s-%s", local.iam_policies_common_name, "write")
   description = "Allow IAM Users to push into ECR"
   policy      = data.aws_iam_policy_document.write.json
 }
 
 resource "aws_iam_role" "default" {
-  name               = "${module.labels.id}${module.labels.delimiter}${var.aws_region}"
+  name               = local.iam_policies_common_name
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
@@ -94,7 +94,7 @@ resource "aws_iam_role_policy_attachment" "default" {
 }
 
 resource "aws_iam_instance_profile" "default" {
-  name = "${module.labels.id}${module.labels.delimiter}${var.aws_region}"
+  name = local.iam_policies_common_name
   role = aws_iam_role.default.name
 }
 
@@ -120,7 +120,7 @@ EOF
 }
 
 resource "aws_ecr_repository" "api" {
-  name = "${var.namespace}/api"
+  name = format("%s/%s", var.namespace, "api")
 
   tags = module.labels.tags
 
@@ -136,7 +136,7 @@ resource "aws_ecr_lifecycle_policy" "api_policy" {
 }
 
 resource "aws_ecr_repository" "push" {
-  name = "${var.namespace}/push"
+  name = format("%s/%s", var.namespace, "push")
 
   tags = module.labels.tags
 
@@ -152,7 +152,7 @@ resource "aws_ecr_lifecycle_policy" "push_policy" {
 }
 
 resource "aws_ecr_repository" "migrations" {
-  name = "${var.namespace}/migrations"
+  name = format("%s/%s", var.namespace, "migrations")
 
   tags = module.labels.tags
 

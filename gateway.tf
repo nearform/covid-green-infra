@@ -2,7 +2,7 @@
 # API Gateway REST API
 # #########################################
 resource "aws_api_gateway_rest_api" "main" {
-  name                     = "${module.labels.id}-gw"
+  name                     = format("%s-%s", module.labels.id, "gw")
   minimum_compression_size = var.api_gateway_minimum_compression_size
   tags                     = module.labels.tags
 
@@ -42,7 +42,7 @@ data "aws_iam_policy_document" "gw_assume_role_policy" {
 }
 
 resource "aws_iam_role" "gateway" {
-  name               = "${module.labels.id}-gw"
+  name               = format("%s-%s", module.labels.id, "gw")
   assume_role_policy = data.aws_iam_policy_document.gw_assume_role_policy.json
 }
 
@@ -56,7 +56,7 @@ data "aws_iam_policy_document" "gw" {
 }
 
 resource "aws_iam_policy" "gw" {
-  name   = "${module.labels.id}-gw"
+  name   = format("%s-%s", module.labels.id, "gw")
   path   = "/"
   policy = data.aws_iam_policy_document.gw.json
 }
@@ -640,7 +640,7 @@ resource "aws_api_gateway_account" "gw" {
 }
 
 resource "aws_cloudwatch_log_group" "api_gateway" {
-  name              = "${module.labels.id}-gw-access-logs"
+  name              = format("%s-%s", module.labels.id, "gw-access-logs")
   retention_in_days = var.logs_retention_days
 }
 

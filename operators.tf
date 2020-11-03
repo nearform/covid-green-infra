@@ -93,13 +93,13 @@ data "aws_iam_policy_document" "operators" {
 }
 
 resource "aws_iam_group" "operators" {
-  name = "${module.labels.id}-operators"
+  name = format("%s-operators", module.labels.id)
   path = "/"
 }
 
 resource "aws_iam_group_policy" "operators" {
   group  = aws_iam_group.operators.id
-  name   = "${module.labels.id}-operators"
+  name   = format("%s-operators", module.labels.id)
   policy = data.aws_iam_policy_document.operators.json
 }
 

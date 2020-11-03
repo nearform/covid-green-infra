@@ -27,7 +27,7 @@ resource "aws_iam_role_policy_attachment" "rds_enhanced_monitoring" {
   count = local.rds_enhanced_monitoring_enabled_count
 
   role       = aws_iam_role.rds_enhanced_monitoring[0].name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+  policy_arn = var.iam_policy_rds_enanched_monitoring
 }
 
 module "rds_cluster_aurora_postgres" {
