@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 
 ## Unreleased
-- Removed: Settings endpoints in API Gateway so they can be handled by ecs_api
+- Updated: API Gateway route "/settings/exposures" handled by ecs_api
 
 
 ## [0.1.16] 2020-12-14
