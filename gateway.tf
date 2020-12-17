@@ -444,6 +444,9 @@ resource "aws_api_gateway_method" "api_settings_proxy_get" {
   authorization    = "CUSTOM"
   authorizer_id    = aws_api_gateway_authorizer.main.id
   api_key_required = false
+  request_parameters = {
+    "method.request.path.proxy" = true
+  }
 }
 
 resource "aws_api_gateway_integration" "api_settings_proxy_get_integration" {
@@ -475,11 +478,17 @@ resource "aws_api_gateway_method_response" "api_settings_proxy_get" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "api_settings_proxy_get_integration" {
-  rest_api_id       = aws_api_gateway_rest_api.main.id
-  resource_id       = aws_api_gateway_resource.api_settings_proxy.id
-  http_method       = aws_api_gateway_method.api_settings_proxy_get.http_method
-  status_code       = aws_api_gateway_method_response.api_settings_proxy_get.status_code
+resource "aws_api_gateway_integration_response" "api_settings_proxy_get_integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.main.id
+  resource_id = aws_api_gateway_resource.api_settings_proxy.id
+  http_method = aws_api_gateway_method.api_settings_proxy_get.http_method
+  status_code = aws_api_gateway_method_response.api_settings_proxy_get.status_code
+  depends_on = [
+    aws_api_gateway_integration.api_settings_proxy_get_integration,
+    aws_api_gateway_resource.api_settings_proxy,
+    aws_api_gateway_method.api_settings_proxy_get,
+    aws_api_gateway_method_response.api_settings_proxy_get
+  ]
 }
 
 ## /api/stats
