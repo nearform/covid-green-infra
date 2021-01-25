@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 - Updated: API Gateway route "/settings/exposures" handled by ecs_api
+- Added: Optional parameters "security_allow_no_token"
+- Added: Optional parameters "security_token_lifetime_no_refresh"
+
+## [0.1.17] 2020-12-18
+- Added: optional SMS cleanup lambda
+
+## [0.1.16] 2020-12-14
+- Added: Missing variables for proxy URLs
+- Added: New parameter "reduced_metrics_whitelist"
+- Added: New optional parameters and secret to proxy verification requests to a third party
+
+>>>>>>> dev
 
 
 ## [0.1.15] 2020-11-26
