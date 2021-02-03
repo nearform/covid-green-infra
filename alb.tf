@@ -272,13 +272,12 @@ resource "aws_lb_listener" "push_https" {
 # #########################################
 module "alb_logs" {
   source  = "trussworks/logs/aws"
-  version = "8.2.0"
+  version = "8.5.0"
 
   alb_logs_prefixes       = ["admin", "api", "push"]
   allow_alb               = true
   default_allow           = false
   force_destroy           = true
-  region                  = var.aws_region
   s3_bucket_name          = format("%s-alb-logs", module.labels.id)
   s3_log_bucket_retention = var.logs_retention_days
   tags                    = module.labels.tags
