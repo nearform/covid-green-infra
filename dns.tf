@@ -25,10 +25,10 @@ resource "aws_acm_certificate" "wildcard_cert" {
 resource "aws_route53_record" "wildcard_cert_validation" {
   count           = local.enable_certificates_count
   provider        = aws.dns
-  name            = aws_acm_certificate.wildcard_cert[0].domain_validation_options.0.resource_record_name
-  type            = aws_acm_certificate.wildcard_cert[0].domain_validation_options.0.resource_record_type
+  name            = tolist(aws_acm_certificate.wildcard_cert[0].domain_validation_options)[0].resource_record_name
+  type            = tolist(aws_acm_certificate.wildcard_cert[0].domain_validation_options)[0].resource_record_type
   zone_id         = data.aws_route53_zone.primary[0].id
-  records         = [aws_acm_certificate.wildcard_cert[0].domain_validation_options.0.resource_record_value]
+  records         = [tolist(aws_acm_certificate.wildcard_cert[0].domain_validation_options)[0].resource_record_value]
   ttl             = 60
   allow_overwrite = true
 
@@ -61,10 +61,10 @@ resource "aws_acm_certificate" "wildcard_cert_us" {
 resource "aws_route53_record" "wildcard_cert_validation_us" {
   count           = local.enable_certificates_count
   provider        = aws.dns
-  name            = aws_acm_certificate.wildcard_cert_us[0].domain_validation_options.0.resource_record_name
-  type            = aws_acm_certificate.wildcard_cert_us[0].domain_validation_options.0.resource_record_type
+  name            = tolist(aws_acm_certificate.wildcard_cert_us[0].domain_validation_options)[0].resource_record_name
+  type            = tolist(aws_acm_certificate.wildcard_cert_us[0].domain_validation_options)[0].resource_record_type
   zone_id         = data.aws_route53_zone.primary[0].id
-  records         = [aws_acm_certificate.wildcard_cert_us[0].domain_validation_options.0.resource_record_value]
+  records         = [tolist(aws_acm_certificate.wildcard_cert_us[0].domain_validation_options)[0].resource_record_value]
   ttl             = 60
   allow_overwrite = true
 

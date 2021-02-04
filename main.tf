@@ -31,6 +31,12 @@ provider "aws" {
   profile = var.profile
 }
 
+provider "aws" {
+  alias = "legacy"
+  region = var.aws_region
+  profile = var.profile
+}
+
 # #########################################
 # Data
 # #########################################

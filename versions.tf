@@ -1,6 +1,6 @@
 terraform {
-  required_version = ">= 0.12.29, < 0.14"
-
+  required_version = "~> 0.12.29"
+  experiments = [variable_validation]
   # Leaving this, even though we have moved towards using this repo as a module - will ignore in that case
   # Also need to cater for git submodule/subtree usage for existing infrastructure
   backend "s3" {}
