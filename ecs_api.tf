@@ -36,6 +36,7 @@ data "aws_iam_policy_document" "api_ecs_task_policy" {
       aws_ssm_parameter.callback_url.arn,
       aws_ssm_parameter.certificate_audience.arn,
       aws_ssm_parameter.cors_origin.arn,
+      aws_ssm_parameter.cors_credentials.arn,
       aws_ssm_parameter.db_database.arn,
       aws_ssm_parameter.db_host.arn,
       aws_ssm_parameter.db_pool_size.arn,

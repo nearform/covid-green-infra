@@ -16,7 +16,6 @@ data "aws_iam_policy_document" "push_ecs_task_policy" {
   statement {
     actions = ["ssm:GetParameter"]
     resources = concat([
-      aws_ssm_parameter.cors_origin.arn,
       aws_ssm_parameter.db_database.arn,
       aws_ssm_parameter.db_host.arn,
       aws_ssm_parameter.db_pool_size.arn,
@@ -24,10 +23,12 @@ data "aws_iam_policy_document" "push_ecs_task_policy" {
       aws_ssm_parameter.db_reader_host.arn,
       aws_ssm_parameter.db_ssl.arn,
       aws_ssm_parameter.default_country_code.arn,
+      aws_ssm_parameter.enforce_onset_date_range_error.arn,
       aws_ssm_parameter.hsts_max_age.arn,
       aws_ssm_parameter.log_level.arn,
       aws_ssm_parameter.onset_date_mandatory.arn,
       aws_ssm_parameter.push_cors_origin.arn,
+      aws_ssm_parameter.push_cors_credentials.arn,
       aws_ssm_parameter.push_host.arn,
       aws_ssm_parameter.push_port.arn,
       aws_ssm_parameter.reduced_metrics_whitelist.arn,

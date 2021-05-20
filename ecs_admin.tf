@@ -34,6 +34,7 @@ data "aws_iam_policy_document" "admin_ecs_task_policy" {
       aws_ssm_parameter.admin_cognito_user_pool_id.arn,
       aws_ssm_parameter.admin_cognito_region.arn,
       aws_ssm_parameter.admin_cors_origin.arn,
+      aws_ssm_parameter.admin_cors_credentials.arn,
       aws_ssm_parameter.admin_host.arn,
       aws_ssm_parameter.admin_port.arn,
       aws_ssm_parameter.db_database.arn,
