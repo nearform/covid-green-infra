@@ -837,6 +837,65 @@ resource "aws_api_gateway_integration_response" "api_stats_get_integration" {
   }
 }
 
+## /api/certs
+resource "aws_api_gateway_resource" "api_certs" {
+  rest_api_id = aws_api_gateway_rest_api.main.id
+  parent_id   = aws_api_gateway_resource.api.id
+  path_part   = "certs"
+}
+
+resource "aws_api_gateway_method" "api_certs_get" {
+  rest_api_id      = aws_api_gateway_rest_api.main.id
+  resource_id      = aws_api_gateway_resource.api_certs.id
+  http_method      = "GET"
+  authorization    = "NONE"
+  authorizer_id    = aws_api_gateway_authorizer.main.id
+  api_key_required = false
+}
+
+resource "aws_api_gateway_integration" "api_certs_get_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.main.id
+  resource_id             = aws_api_gateway_resource.api_certs.id
+  http_method             = aws_api_gateway_method.api_certs_get.http_method
+  timeout_milliseconds    = var.api_gateway_timeout_milliseconds
+  integration_http_method = "GET"
+  type                    = "AWS"
+  uri                     = format("arn:aws:apigateway:%s:s3:path/%s/certs.json", var.aws_region, aws_s3_bucket.assets.id)
+  credentials             = aws_iam_role.gateway.arn
+}
+
+resource "aws_api_gateway_method_response" "api_certs_get" {
+  rest_api_id = aws_api_gateway_rest_api.main.id
+  resource_id = aws_api_gateway_resource.api_certs.id
+  http_method = aws_api_gateway_method.api_certs_get.http_method
+  status_code = "200"
+  response_models = {
+    "application/json" = "Empty"
+  }
+  response_parameters = {
+    "method.response.header.Content-Length"            = false,
+    "method.response.header.Content-Type"              = false,
+    "method.response.header.Cache-Control"             = true,
+    "method.response.header.Pragma"                    = true,
+    "method.response.header.Strict-Transport-Security" = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "api_certs_get_integration" {
+  rest_api_id       = aws_api_gateway_rest_api.main.id
+  resource_id       = aws_api_gateway_resource.api_certs.id
+  http_method       = aws_api_gateway_method.api_certs_get.http_method
+  selection_pattern = aws_api_gateway_method_response.api_certs_get.status_code
+  status_code       = aws_api_gateway_method_response.api_certs_get.status_code
+  response_parameters = {
+    "method.response.header.Content-Length"            = "integration.response.header.Content-Length",
+    "method.response.header.Content-Type"              = "integration.response.header.Content-Type",
+    "method.response.header.Cache-Control"             = "'no-store'",
+    "method.response.header.Pragma"                    = "'no-cache'",
+    "method.response.header.Strict-Transport-Security" = format("'max-age=%s; includeSubDomains'", var.hsts_max_age)
+  }
+}
+
 ## /api/data
 resource "aws_api_gateway_resource" "api_data" {
   rest_api_id = aws_api_gateway_rest_api.main.id
