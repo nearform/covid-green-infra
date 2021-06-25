@@ -395,6 +395,11 @@ variable "allow_no_token" {
   default     = "false"
 }
 
+variable "build_cert_data" {
+  description = "Build DCC data used for validating DGC certs"
+  default     = "false"
+}
+
 variable "callback_rate_limit_request_count" {
   description = "Number of callback requests allowed within the defined window"
   default     = "1"

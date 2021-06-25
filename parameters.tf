@@ -74,6 +74,14 @@ resource "aws_ssm_parameter" "app_bundle_id" {
   tags      = module.labels.tags
 }
 
+resource "aws_ssm_parameter" "build_cert_data" {
+  overwrite = true
+  name      = format("%sbuild_cert_data", local.config_var_prefix)
+  type      = "String"
+  value     = var.build_cert_data
+  tags      = module.labels.tags
+}
+
 resource "aws_ssm_parameter" "callback_url" {
   overwrite = true
   name      = format("%scallback_url", local.config_var_prefix)
