@@ -837,37 +837,37 @@ resource "aws_api_gateway_integration_response" "api_stats_get_integration" {
   }
 }
 
-## /api/certs
-resource "aws_api_gateway_resource" "api_certs" {
+## /api/dcc-config
+resource "aws_api_gateway_resource" "api_dccconfig" {
   rest_api_id = aws_api_gateway_rest_api.main.id
   parent_id   = aws_api_gateway_resource.api.id
-  path_part   = "certs"
+  path_part   = "dcc-config"
 }
 
-resource "aws_api_gateway_method" "api_certs_get" {
+resource "aws_api_gateway_method" "api_dccconfig_get" {
   rest_api_id      = aws_api_gateway_rest_api.main.id
-  resource_id      = aws_api_gateway_resource.api_certs.id
+  resource_id      = aws_api_gateway_resource.api_dccconfig.id
   http_method      = "GET"
   authorization    = "NONE"
   authorizer_id    = aws_api_gateway_authorizer.main.id
   api_key_required = false
 }
 
-resource "aws_api_gateway_integration" "api_certs_get_integration" {
+resource "aws_api_gateway_integration" "api_dccconfig_get_integration" {
   rest_api_id             = aws_api_gateway_rest_api.main.id
-  resource_id             = aws_api_gateway_resource.api_certs.id
-  http_method             = aws_api_gateway_method.api_certs_get.http_method
+  resource_id             = aws_api_gateway_resource.api_dccconfig.id
+  http_method             = aws_api_gateway_method.api_dccconfig_get.http_method
   timeout_milliseconds    = var.api_gateway_timeout_milliseconds
   integration_http_method = "GET"
   type                    = "AWS"
-  uri                     = format("arn:aws:apigateway:%s:s3:path/%s/certs.json", var.aws_region, aws_s3_bucket.assets.id)
+  uri                     = format("arn:aws:apigateway:%s:s3:path/%s/dccconfig.json", var.aws_region, aws_s3_bucket.assets.id)
   credentials             = aws_iam_role.gateway.arn
 }
 
-resource "aws_api_gateway_method_response" "api_certs_get" {
+resource "aws_api_gateway_method_response" "api_dccconfig_get" {
   rest_api_id = aws_api_gateway_rest_api.main.id
-  resource_id = aws_api_gateway_resource.api_certs.id
-  http_method = aws_api_gateway_method.api_certs_get.http_method
+  resource_id = aws_api_gateway_resource.api_dccconfig.id
+  http_method = aws_api_gateway_method.api_dccconfig_get.http_method
   status_code = "200"
   response_models = {
     "application/json" = "Empty"
@@ -881,12 +881,12 @@ resource "aws_api_gateway_method_response" "api_certs_get" {
   }
 }
 
-resource "aws_api_gateway_integration_response" "api_certs_get_integration" {
+resource "aws_api_gateway_integration_response" "api_dccconfig_get_integration" {
   rest_api_id       = aws_api_gateway_rest_api.main.id
-  resource_id       = aws_api_gateway_resource.api_certs.id
-  http_method       = aws_api_gateway_method.api_certs_get.http_method
-  selection_pattern = aws_api_gateway_method_response.api_certs_get.status_code
-  status_code       = aws_api_gateway_method_response.api_certs_get.status_code
+  resource_id       = aws_api_gateway_resource.api_dccconfig.id
+  http_method       = aws_api_gateway_method.api_dccconfig_get.http_method
+  selection_pattern = aws_api_gateway_method_response.api_dccconfig_get.status_code
+  status_code       = aws_api_gateway_method_response.api_dccconfig_get.status_code
   response_parameters = {
     "method.response.header.Content-Length"            = "integration.response.header.Content-Length",
     "method.response.header.Content-Type"              = "integration.response.header.Content-Type",
@@ -1313,7 +1313,7 @@ resource "aws_api_gateway_deployment" "live" {
     aws_api_gateway_integration.api_settings_exposures_get_integration,
     aws_api_gateway_integration.api_settings_language_get_integration,
     aws_api_gateway_integration.api_stats_get_integration,
-    aws_api_gateway_integration.api_certs_get_integration,
+    aws_api_gateway_integration.api_dccconfig_get_integration,
     aws_api_gateway_integration.api_data_exposures_item_get_integration,
     aws_api_gateway_integration.apple_site_association_get_integration,
     aws_api_gateway_integration.assetlinks_get_integration,
