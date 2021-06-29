@@ -5,7 +5,7 @@ module "dccconfig" {
   name   = format("%s-sms-scheduler", module.labels.id)
 
   aws_parameter_arns = concat([
-    aws_ssm_parameter.time_zone.arn
+    aws_ssm_parameter.time_zone.arn,
     aws_ssm_parameter.s3_assets_bucket.arn,
     aws_ssm_parameter.build_dcc_config.arn
     ],
