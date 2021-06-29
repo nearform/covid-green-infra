@@ -74,11 +74,11 @@ resource "aws_ssm_parameter" "app_bundle_id" {
   tags      = module.labels.tags
 }
 
-resource "aws_ssm_parameter" "build_dcc_config" {
+resource "aws_ssm_parameter" "enable_dcc" {
   overwrite = true
-  name      = format("%sbuild_dcc_config", local.config_var_prefix)
+  name      = format("%senable_dcc", local.config_var_prefix)
   type      = "String"
-  value     = var.build_dcc_config
+  value     = var.enable_dcc
   tags      = module.labels.tags
 }
 

@@ -395,8 +395,8 @@ variable "allow_no_token" {
   default     = "false"
 }
 
-variable "build_dcc_config" {
-  description = "Build DCC data used for validating DGC certs"
+variable "enable_dcc" {
+  description = "Enabled DCC functionality used for validating DGC certs"
   default     = "false"
 }
 
