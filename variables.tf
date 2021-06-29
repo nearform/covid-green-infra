@@ -395,7 +395,7 @@ variable "allow_no_token" {
   default     = "false"
 }
 
-variable "build_cert_data" {
+variable "build_dcc_config" {
   description = "Build DCC data used for validating DGC certs"
   default     = "false"
 }
@@ -580,6 +580,10 @@ variable "lambda_callback_s3_key" {
 }
 variable "lambda_callback_timeout" {
   description = "callback lambda timeout"
+  default     = 300
+}
+variable "lambda_dccconfig_timeout" {
+  description = "dccconfig lambda timeout"
   default     = 300
 }
 variable "lambda_custom_runtimes" {
@@ -842,6 +846,10 @@ variable "refresh_token_expiry" {
 }
 variable "settings_schedule" {
   description = "settings lambda CloudWatch schedule"
+}
+variable "dccconfig_schedule" {
+  description = "settings lambda CloudWatch schedule"
+  default     = "cron(0 4 * * ? *)"
 }
 variable "sms_region" {
   description = "AWS region to use when sending SMS messages"
