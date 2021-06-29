@@ -2,7 +2,7 @@
 module "dccconfig" {
   source = "./modules/lambda"
   enable = true
-  name   = format("%s-sms-scheduler", module.labels.id)
+  name   = format("%s-dcc-config", module.labels.id)
 
   aws_parameter_arns = concat([
     aws_ssm_parameter.time_zone.arn,
