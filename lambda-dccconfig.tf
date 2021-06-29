@@ -12,6 +12,10 @@ module "dccconfig" {
     aws_ssm_parameter.interop_origin.*.arn
   )  
 
+  s3_bucket_arns_to_write_to = concat([
+    aws_s3_bucket.assets.arn
+  ])
+
   aws_secret_arns    = concat([data.aws_secretsmanager_secret_version.rds_read_write.arn], data.aws_secretsmanager_secret_version.interop.*.arn)
   config_var_prefix  = local.config_var_prefix
   handler            = "dcc-config.handler"
@@ -24,4 +28,5 @@ module "dccconfig" {
   tags               = module.labels.tags
   timeout            = var.lambda_dccconfig_timeout
   cloudwatch_schedule_expression = var.dccconfig_schedule
+
 }
