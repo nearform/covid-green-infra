@@ -598,6 +598,10 @@ variable "lambda_cleanup_memory_size" {
   description = "cleanup lambda memory size"
   default     = 128
 }
+variable "lambda_dccconfig_memory_size" {
+  description = "DCC config memory size"
+  default     = 512
+}
 variable "lambda_cleanup_s3_key" {
   description = "cleanup lambda S3 key if using - file path"
   default     = ""
